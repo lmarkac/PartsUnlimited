@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head lang="en">
+    <title>Article input</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1 class="display-4" style="text-align:center">Article input</h1>
+    <br/>
+    <form th:object="${articleDto}" action="/articles" method="post">
+        <tr>
+            <td>
+                <div class="w-100 p-3" style="background-color: #eee;">
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">Price</label>
+                        <div class="col-10">
+                            <input class="form-control" type="number" th:field="*{price}">
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div class="w-100 p-3" style="background-color: #eee;">
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">Choose part</label>
+                        <div class="col-10">
+                            <select class="form-control form-control-lg" th:field="*{idPart}">
+                                <option th:each="part : ${parts}" th:text="${part.id} + ' - ' + ${part.partName}" th:value="${part.id}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="w-100 p-3" style="background-color: #eee;">
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">Choose action</label>
+                        <div class="col-10">
+                            <select class="form-control form-control-lg" th:field="*{idAction}">
+                                <option th:value="-1">Not on action</option>
+                                <option th:each="action : ${actions}" th:text="${action.id} + ': ' + ${action.startDate} + ' - ' + ${action.endDate}" th:value="${action.id}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <br/>
+        <tr>
+            <td>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <button type="submit" value="Submit" class="btn btn-primary btn-block">Submit</button>
+                </div>
+            </td>
+        </tr>
+    </form>
+</div>
+</body>
+</html>

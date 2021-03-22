@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head lang="en">
+    <title>Parts Unlimited</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="lead display-4">Parts Unlimited</h1>
+        <hr class="my-4">
+    </div>
+    <div class="card sticky-top" sec:authorize="hasAuthority('ROLE_SALES')">
+        <a href="#" th:href="@{/articles/new}" class="btn btn-primary btn-block" role="button" aria-pressed="true">Insert
+            new article</a>
+    </div>
+    <div class="card sticky-top" sec:authorize="hasAuthority('ROLE_SALES')">
+        <a href="#" th:href="@{/articles/delete}" class="btn btn-danger btn-block" role="button" aria-pressed="true">Delete
+            an article</a>
+    </div>
+    <h4 class="display-4">Articles on sale</h4>
+    <table class="table">
+        <tr>
+            <td>Serial number</td>
+            <td>Date manufactured</td>
+            <td>Price</td>
+        </tr>
+        <tr th:each="article,iter : ${articles}">
+            <td th:text="${article.id}"></td>
+            <td th:text="${article.dateManufactured}"></td>
+            <td th:text="${article.priceAfterDiscount}"></td>
+            <td>
+                <a sec:authorize="hasAuthority('ROLE_SALES')" href="#" th:href="@{/articles/modify/__${article.id}__}"
+                   class="btn btn-primary btn-block" role="button" aria-pressed="true">Modify</a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
